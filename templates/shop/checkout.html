@@ -1,0 +1,98 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+{% block content %}
+     <div class="row" style="margin:50px;">
+		<div class="col-lg-8">
+		<h2> Checkout Form </h2>
+			<div class="box-element" id="form-wrapper">
+				<form id="form">
+					<div id="user-info">
+						<div class="form-field">
+							<input required class="form-control" type="text" name="name" placeholder="Name..">
+						</div>
+						<div class="form-field">
+							<input required class="form-control" type="email" name="email" placeholder="Email..">
+						</div>
+					</div>
+					
+					<div id="shipping-info">
+						<hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="text" name="address" placeholder="Address..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="city" placeholder="City..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="state" placeholder="State..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+						</div>
+						{% comment %} <div class="form-field">
+							<input class="form-control" type="text" name="country" placeholder="Zip code..">
+						</div> {% endcomment %}
+					</div>
+
+					<hr>
+					<!-- <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue"> -->
+					<a href="{%  url 'payment' %}" class="btn btn-success btn-block" > Continue </a>
+
+				</form>
+			</div>
+
+			<br>
+			<div class="box-element hidden" id="payment-info">
+				<small>Paypal Options</small>
+				<!--<button id="make-payment">Make payment</button>-->
+				<div id="paypal-button-container"></div>
+			</div>
+			
+		</div>
+
+		<div class="col-lg-4">
+            <a class="btn btn-outline-warning rounded-0 mt-1" style="color:white" href="{% url 'Cart' %}">Back to Cart</a>
+
+            <h4 class="mt-3"><b>Order Summary</b></h4>
+            <div class="row" style="font-weight:bolder;padding:0px;">
+                {% comment %} <div class="col-3 text-center"> img</div> {% endcomment %}
+                <div class="col-3" id='remove_small'>name</div>
+                <div class="col-3">price</div>
+                <div class="col-3">quantity</div>
+            </div><hr>
+
+            {% for item in items %}
+            <div class="row">
+                {% comment %} <div class="col-3 text-center">
+                    <img src="{{ item.product.imageURL }}" class="img-fluid img-thumbnail"
+                        style="height: 70px; width: 70px;">
+                </div> {% endcomment %}
+                <div class="col-3">
+                    <p id='remove_small'> {{item.product.product_name}} </p>
+                </div>
+                <div class="col-3">
+                    <p> {{ item.get_total|floatformat:2 }} </p>
+                </div>
+                <div class="col-3">
+                    <p>{{ item.quantity }}</p>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+			
+            <br>
+            <p><span class="h5">Items:  <strong>{{ order.get_cart_items }}</strong></span>
+                <span class="h5" style="float: right;">Cart Total:  <strong>{{ order.get_cart_total|floatformat:2 }}</strong></span></p>
+            
+            <h5 style="float:left"> Shipping: <strong>500.00</strong> </h5>
+            <h5 style="float:right"> Total: <strong> {{ order.get_cart_total|add:500|floatformat:2 }}  </h5>
+        </div>
+	</div>
+
+{% endblock content %}
+
+
+ 

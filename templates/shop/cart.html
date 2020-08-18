@@ -1,0 +1,63 @@
+{% extends 'shop/base.html' %} {% load static %} {% block content %}
+
+<div class="container pt-5">
+  <div class="shadow py-2">
+    <div>
+      <table class="table">
+        <tr>
+          <th>Item: {{ order.get_cart_items }}</th>
+        </tr>
+        <tr>
+          <th>Total: {{ order.get_cart_total|floatformat:2 }}</th>
+        </tr>
+      </table>
+    </div>
+        <a href="{% url 'ShopHome' %}" style="color:white;float: right;" class="btn ml-3 mt-3 btn-outline-warning rounded-0">Continue Shoping</a>
+        <a href="{% url 'checkout' %}" class="btn btn-outline-warning rounded-0 text-light" >Checkout</a>
+  </div>
+  <div class="shadow pt-5">
+    {% for i in items %}
+
+    <div class="row">
+      <div class="col-sm-3 text-center">
+        <img src="{{ i.product.imageURL }}" class="img-fluid border img-thumbnail" style="height: 100px; width: 100px;" />
+      </div>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-sm-4"><strong>price:</strong> {{ i.product.price }}</div>
+          <div class="col-sm-4">
+            <strong>Quantity:</strong>
+            <span class="text-center btn-group">
+              <a
+                href="#"
+                class="update-cart"
+                style="text-decoration: none;"
+                data-product="{{i.product.id}}"
+                data-action="add"
+              >
+                <i class="far fa-plus-square fa-1x text-warning" style="font-weight: bold; font-size: 22px;"></i>
+              </a>
+              <span class="" style=" border: 2px solid yellow; height: 23px;">{{ i.quantity }} </span>
+              <a
+                href="#"
+                class="update-cart"
+                style="text-decoration: none;"
+                data-product="{{i.product.id}}"
+                data-action="remove"
+              >
+                <i class="far fa-minus-square fa-1x text-warning" style="font-weight: bold; font-size: 22px;"></i>
+              </a>
+            </span>
+          </div>
+          <div class="col-sm-4"><strong>Total: {{ i.get_total|floatformat:2 }} </strong></div>
+
+        </div>
+      </div>
+    </div>
+    <hr />
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

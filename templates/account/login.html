@@ -1,0 +1,52 @@
+{% extends "account/base.html" %}
+ {% load crispy_forms_tags %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <h1>{% trans "Sign In" %}</h1>
+
+  {% get_providers as socialaccount_providers %}
+
+  {% if socialaccount_providers %}
+  <p>Please sign in with one of your existing Or third party accounts.</p>
+  <div class="socialaccount_ballot">
+
+    {% comment %} <ul class="socialaccount_providers">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul> {% endcomment %}
+    <ul style="padding-left:0px;">
+      <button type="button" class="btn btn-danger"><a class="rm" href="{% provider_login_url 'google' %}">+ Google</a></button>
+      {% comment %} <button type="button" class="btn btn-primary"><a href="{% provider_login_url 'facebook' method='oauth2'%}" style="color:white"> Facebook</a></button> {% endcomment %}
+      <button type="button" style="background-color:#1111c4;"class="btn"><a class="rm"href="{% provider_login_url 'facebook' method='js_sdk'%}"> Facebook</a></button>
+
+    </ul>
+    {% comment %} <div class="login-or">{% trans 'or' %}</div> {% endcomment %}
+
+  </div>
+  <div class="container"> 
+  {% include "socialaccount/snippets/login_extra.html" %}
+
+  {% else %}
+  <p>{% blocktrans %}If you have not created an account yet, then please
+  <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+  {% endif %}
+  <form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form|crispy}}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %} 
+    <div style="padding-left:0px;">
+    <button class="btn"><a class="rm" href="{% url 'account_reset_password' %}">{% trans "Forgot Password" %}</a></button>
+    <button class="btn" style="color:white;" type="submit">{% trans "Sign In" %}</button>
+    </div>
+  </form>
+  </div>
+</diV>
+{% endblock %}

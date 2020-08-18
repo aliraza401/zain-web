@@ -1,0 +1,27 @@
+{% extends 'shop/base.html' %}
+ {% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container col-6"> 
+  <h3> Contact </h3>
+  <form method='POST'>
+    {% csrf_token %}
+    {{form|crispy}}
+    <button  type="submit" class="btn ">Submit</button>
+  </form>
+
+</div>
+
+
+{% endblock %}
+
+{% block js%}
+<script>
+
+function contact()
+{
+    alert(" your message send succefully  ")
+}
+
+</script>
+{% endblock%}

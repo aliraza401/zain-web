@@ -1,0 +1,93 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+{% block content %}
+     
+<div class="mt-4 my-5" style="margin-left: 5%; margin-right: 5%;">
+      {% comment %} <form method='POST'>
+        {%csrf_token%} {% endcomment %}
+
+    <div class="row ">
+        <div class="col-md-6 shadow-sm">
+            <a class="btn btn-outline-info rounded-0" style="color:white;"href="{% url 'Cart' %}">Back to Cart</a>
+            
+            <div class="row p-3">
+                <div  class="card-body bg-secondary mt-3 rounded text-white disabled ml-3" 
+                style=" width: 100px; height: 100px; font-weight: bolder; text-decoration: none;"
+                data-container="body" data-toggle="popover" data-placement="right" title="Sorry we currently only support Cash on Delivery" >
+                    <div class="text-white" >Easypaisa Wallet</div>
+                </div>
+                
+    
+                <div  class="card-body bg-secondary mt-3 rounded text-white disabled ml-3" 
+                style=" width: 100px; height: 100px; font-weight: bolder; text-decoration: none;"
+                data-container="body" data-toggle="popover" data-placement="right" title="Sorry we currently only support Cash on Delivery" >
+                    <div class="text-white" >Jazzcash</div>
+                </div>
+            </div>
+
+            <div class="row p-3">
+                <div  class="card-body bg-secondary mt-3 rounded text-white disabled ml-3" 
+                style=" width: 100px; height: 100px; font-weight: bolder; text-decoration: none;"
+                data-container="body" data-toggle="popover" data-placement="right" title="Sorry we currently only support Cash on Delivery" >
+                    <div class="text-white" >Credit/Debit Card</div>
+                </div>
+                
+                <a href="{% url 'process_payment' %}" class="card-body bg-primary mt-3 rounded text-white ml-3" style="width: 100px; height: 100px; font-weight: bolder; text-decoration: none;">
+                    <div class="text-white ">Cash on Delivery </div>
+                </a>
+            </div>
+            
+        </div>
+        {% comment %} </form> {% endcomment %}
+
+        <br>
+        <div class="col-md-6  shadow-sm ">
+
+            <h4>Order Summary</h4>
+
+            <hr>
+            <br>
+
+            <div class="row ">
+                <div class="col-sm-6 text-center h3 ">
+                    Cart Total:
+                </div>
+                <div class="col-sm-6">
+                    <strong class="btn btn-block rounded-0 btn-outline-primary disabled" style="font-weight: bolder;">
+                        {{ order.get_cart_total|floatformat:2 }}
+                    </strong>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-sm-6 text-center h3 ">
+                    Shipping:
+                </div>
+                <div class="col-sm-6">
+                    <strong class="btn btn-block rounded-0 btn-outline-primary disabled" style="font-weight: bolder;">
+                        500
+                    </strong>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-sm-6 text-center h3 ">
+                    Total:
+                </div>
+                <div class="col-sm-6">
+                    <strong class="btn btn-block rounded-0 btn-outline-primary disabled" style="font-weight: bolder;">
+                        {{ order.get_cart_total| add:500| floatformat:2 }}
+                    </strong>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
+
+
+ 

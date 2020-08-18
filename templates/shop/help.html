@@ -1,0 +1,20 @@
+<!doctype html>
+
+{% extends 'shop/base.html'%}
+ {% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container col-6" style="width:100%;height:500px;">
+    <h1 id="helph1"> Hello. What can we help you ? </h1>
+    <h2> write your query here </h2>
+  <form method='POST'>
+    {% csrf_token %}
+    {{form|crispy}}
+    <button  type="submit" class="btn ">Submit</button>
+  </form>
+
+</div>
+
+
+{% endblock %}  
